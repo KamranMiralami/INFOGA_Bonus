@@ -1,0 +1,54 @@
+## Visual Studio specific
+# The .vs folder (seen in your image) contains user-specific config/cache and should never be committed
+.vs/
+.vscode/
+
+## Build Results
+# These folders contain compiled binaries and object files
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+artifacts/
+
+## User-specific files
+# These track your personal window layouts and open files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Tests
+TestResults/
+*.trx
+*.tt
+
+## OS Generated Files
+# Windows thumbnails and Mac folder config
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+## Profilers and Crash Dumps
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+## ReSharper (if used)
+_ReSharper*/
+*.ReSharper
+
+## Dotnet / Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Other
+*.log
+*.tmp
