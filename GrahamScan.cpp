@@ -297,9 +297,9 @@ namespace INFOGA_Bonus_CPP
             SaveToCSV(points, filename);
         }
         // This is just to make multiple loop runs for performance testing
-        static void MakeRun(bool print, bool save)
+        static void MakeRun(bool print, bool save, string filename)
         {
-            vector<INFOGA_Bonus_CPP::Point> filePoints = INFOGA_Bonus_CPP::GrahamScan::LoadPointsFromCSV("circle.csv");
+            vector<INFOGA_Bonus_CPP::Point> filePoints = INFOGA_Bonus_CPP::GrahamScan::LoadPointsFromCSV(filename);
             vector<Point> hull = GetConvexHull(filePoints);
             if (print)
             {
@@ -311,7 +311,7 @@ namespace INFOGA_Bonus_CPP
             }
             if (save)
             {
-                GrahamScan::SaveToCSV(hull, "solution.csv");
+                GrahamScan::SaveToCSV(hull, filename+"_solution.csv");
             }
         }
     };
@@ -319,15 +319,18 @@ namespace INFOGA_Bonus_CPP
 
 int main()
 {
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateUniform(10000, 10000.0, "uniform.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateCircle(10000, 5000.0, "circle.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateTriangle(10000, "triangle.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateNormal(10000, 5000.0, 1500.0, "normal.csv");
+    INFOGA_Bonus_CPP::GrahamScan::GenerateUniform(1000, 1000.0, "uniform.csv");
+    INFOGA_Bonus_CPP::GrahamScan::GenerateCircle(1000, 500.0, "circle.csv");
+    INFOGA_Bonus_CPP::GrahamScan::GenerateTriangle(1000, "triangle.csv");
+    INFOGA_Bonus_CPP::GrahamScan::GenerateNormal(1000, 000.0, 150.0, "normal.csv");
     auto start = chrono::high_resolution_clock::now();
     int numberOfRuns = 1;
     for (int i = 0; i < numberOfRuns; i++)
     {
-        INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, false);
+        INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, true, "uniform.csv");
+        INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, true, "circle.csv");
+        INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, true, "triangle.csv");
+        INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, true, "normal.csv");
     }
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> elapsed = end - start;
