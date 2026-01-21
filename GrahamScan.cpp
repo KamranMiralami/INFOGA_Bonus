@@ -317,20 +317,21 @@ namespace INFOGA_Bonus_CPP
             }
         }
         // This is just to make multiple loop runs for performance testing
-        static void MakeRun2(vector<INFOGA_Bonus_CPP::Point> &filePoints)
+        static int MakeRun2(vector<INFOGA_Bonus_CPP::Point> &filePoints)
         {
             vector<Point> hull = GetConvexHull(filePoints);
+            return hull.size();
         }
     };
 }
 
 int main()
 {
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateUniform(1000, 1000.0, "uniform.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateCircle(1000, 500.0, "circle.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateTriangle(1000, "triangle.csv");
-    //INFOGA_Bonus_CPP::GrahamScan::GenerateNormal(1000, 000.0, 150.0, "normal.csv");
-    vector<INFOGA_Bonus_CPP::Point> filePoints = INFOGA_Bonus_CPP::GrahamScan::LoadPointsFromCSV("triangle.csv");
+    //INFOGA_Bonus_CPP::GrahamScan::GenerateUniform(10000, 1000.0, "uniform.csv");
+    //INFOGA_Bonus_CPP::GrahamScan::GenerateCircle(10000, 5000.0, "circle.csv");
+    //INFOGA_Bonus_CPP::GrahamScan::GenerateTriangle(1000000, "triangle.csv");
+    //INFOGA_Bonus_CPP::GrahamScan::GenerateNormal(10000, 000.0, 150.0, "normal.csv");
+    vector<INFOGA_Bonus_CPP::Point> filePoints = INFOGA_Bonus_CPP::GrahamScan::LoadPointsFromCSV("normal.csv");
     double currTime = 0.0;
     int numberOfRuns = 1000;
     vector<vector<INFOGA_Bonus_CPP::Point>> batch;
@@ -339,13 +340,15 @@ int main()
     {
         batch.push_back(filePoints);
     }
-    auto start = std::chrono::steady_clock::now();
+    int sizeOfCH = 0;
+    auto start = chrono::steady_clock::now();
     for (int i = 0; i < numberOfRuns; i++)
     {
         //INFOGA_Bonus_CPP::GrahamScan::MakeRun(false, false, "circle.csv", filePoints);
-        INFOGA_Bonus_CPP::GrahamScan::MakeRun2(batch[i]);
+        sizeOfCH = INFOGA_Bonus_CPP::GrahamScan::MakeRun2(batch[i]);
     }
-    auto end = std::chrono::steady_clock::now();
+    auto end = chrono::steady_clock::now();
     auto diff = end - start;
-    cout << std::chrono::duration<double, std::milli>(diff).count()/(double)numberOfRuns << " ms" << std::endl;
+    cout << "Size of CH is " << sizeOfCH << endl;
+    cout << chrono::duration<double, milli>(diff).count()/(double)numberOfRuns << " ms" << endl;
 }
